@@ -114,6 +114,11 @@ const deleteUser = asyncHandler(async (req,res) => {
     res.status(200).json(user);
 });
 
+
+const currentUser = asyncHandler(async (req,res) => {
+    res.status(200).json(req.user);
+});
+
 module.exports ={
     getUsers,
     getUser,
@@ -121,5 +126,6 @@ module.exports ={
     updateUser,
     deleteUser,
     registerUser,
-    loginUser
+    loginUser,
+    currentUser
 }
