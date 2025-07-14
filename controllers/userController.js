@@ -9,6 +9,20 @@ const getUsers = asyncHandler(async (req,res) => {
     res.status(200).json(users);
 });
 
+//@desc Register user
+//@route POST /api/users/register
+//@access public
+const registerUser = asyncHandler(async (req,res) => {
+    //const users = await User.find();
+    res.status(200).json({message : "Register user"});
+});
+//@desc Login user
+//@route POST /api/users/login
+//@access public
+const loginUser = asyncHandler(async (req,res) => {
+    //const users = await User.find();
+    res.status(200).json({message : "Login user"});
+});
 
 //@desc Get user from id
 //@route GET /api/users/:id
