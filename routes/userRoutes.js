@@ -25,34 +25,6 @@ router.delete('/:id', validateToken, deleteUser);
 router.post('/register',registerValidation, registerUser);
 router.post('/login', loginUser);
 
-/**
- * @swagger
- * /api/users/register:
- *   post:
- *     summary: Yeni kullanıcı kaydı
- *     tags: [User]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - username
- *               - email
- *               - password
- *             properties:
- *               username:
- *                 type: string
- *               email:
- *                 type: string
- *               password:
- *                 type: string
- *     responses:
- *       201:
- *         description: Kullanıcı oluşturuldu
- *       400:
- *         description: Hatalı veri
- */
+
 
 module.exports = router;
