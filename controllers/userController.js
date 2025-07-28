@@ -2,10 +2,10 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const { validationResult } = require('express-validator');
 //@desc Get All users
 //@route GET /api/users
-//@access public
+//@access private
 const getUsers = asyncHandler(async (req,res) => {
     const users = await User.find();
     res.status(200).json(users);
@@ -13,8 +13,12 @@ const getUsers = asyncHandler(async (req,res) => {
 
 //@desc Register user
 //@route POST /api/users/register
-//@access public
+//@access private
 const registerUser = asyncHandler(async (req,res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors });
+    }
     const {username, email, password} = req.body;
     if(!username || !email || !password){
         res.status(400);
@@ -41,7 +45,7 @@ const registerUser = asyncHandler(async (req,res) => {
 });
 //@desc Login user
 //@route POST /api/users/login
-//@access public
+//@access private
 const loginUser = asyncHandler(async (req,res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -73,7 +77,7 @@ const loginUser = asyncHandler(async (req,res) => {
 
 //@desc Get user from id
 //@route GET /api/users/:id
-//@access public
+//@access private
 const getUser = asyncHandler(async (req,res) => {
     const user = await User.find();
     res.status(200).json(user);
@@ -81,7 +85,7 @@ const getUser = asyncHandler(async (req,res) => {
 
 //@desc Create new user
 //@route POST /api/users
-//@access public
+//@access private
 const createUser = asyncHandler(async (req,res) => {
     const user = await User.find();
     res.status(200).json(user);
@@ -89,7 +93,7 @@ const createUser = asyncHandler(async (req,res) => {
 
 //@desc Update user from id
 //@route PUT /api/users/:id
-//@access public
+//@access private
 const updateUser = asyncHandler(async (req,res) => {
     const user = await User.findById(req.params.id);
     if (!user){
@@ -104,7 +108,7 @@ const updateUser = asyncHandler(async (req,res) => {
 
 //@desc Delete user from id
 //@route DELETE /api/users/:id
-//@access public
+//@access private
 const deleteUser = asyncHandler(async (req,res) => {
     const user = await User.findByIdAndDelete(req.params.id);
     if (!user){
